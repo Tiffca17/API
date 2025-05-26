@@ -303,7 +303,7 @@ async def get_month_sum(route:str):
 
 @app.get("/week-sum/{start_date}/{end_date}/{route}")
 async def get_week_sum(start_date: str,end_date: str, route: str):
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -352,7 +352,7 @@ async def get_week_sum(start_date: str,end_date: str, route: str):
 
 @app.get("/recent-activity")
 async def get_recent_activity():
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -389,7 +389,7 @@ async def get_recent_activity():
 
 @app.get("/activity-history/{page}/{order}/{startDate}/{endDate}")
 async def get_activity_history(order: str , page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -441,7 +441,7 @@ async def get_activity_history(order: str , page:int = 1, limit:int = 20, dir: s
 
 @app.get("/activity-history/{page}/{order}/{startDate}/{endDate}/{search}")
 async def get_activity_history_search(order: str , search:str, page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -504,7 +504,7 @@ async def get_activity_history_search(order: str , search:str, page:int = 1, lim
 
 @app.get("/production-history/{page}/{order}/{startDate}/{endDate}")
 async def get_production_history(order: str, page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -576,7 +576,7 @@ async def get_production_history(order: str, page:int = 1, limit:int = 20, dir: 
 
 @app.get("/production-history/{page}/{order}/{startDate}/{endDate}/{search}")
 async def get_production_history_search(order: str, search:str, page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -656,7 +656,7 @@ async def get_production_history_search(order: str, search:str, page:int = 1, li
 
 @app.post("/activity")
 async def post_activity(activity:Activity):
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
@@ -718,7 +718,7 @@ async def send_file(
 
 @app.get("/status")
 async def get_status():
-      conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
                         host= os.getenv("DB_HOST"),
                         user=os.getenv("DB_USER"),
                         password=os.getenv("DB_PASS"),
