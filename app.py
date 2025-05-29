@@ -155,7 +155,7 @@ async def send_mail(email: EmailSchema, location:str, date: datetime, asset:str)
                 <p><strong>Affected Machine:</strong> {asset}</p>
                 <p><strong>Status:</strong> <span style="color: red;">Stopped</span></p>
                 <p>The control system has automatically shut down associated equipment to prevent further issues. Please inspect the affected machinery as soon as possible.</p>
-                <a href="http://129.213.108.16/Website/" class="button">View Dashboard</a>
+                <a href="https://p-tea.com" class="button">View Dashboard</a>
                 </div>
                 <div class="footer">
                 This is an automated alert from the Central Monitoring System – Lydford Mining.
