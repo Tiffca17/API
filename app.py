@@ -14,13 +14,6 @@ import os
 
 load_dotenv()
 
-conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
-                        host= os.getenv("DB_HOST"),
-                        user=os.getenv("DB_USER"),
-                        password=os.getenv("DB_PASS"),
-                        port=("5432")
-)
-
 conf = ConnectionConfig(
     MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
     MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),   
@@ -260,6 +253,12 @@ app.add_middleware(
 
 @app.get("/month-sum/{route}")
 async def get_month_sum(route:str):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         query = f"""
@@ -297,9 +296,19 @@ async def get_month_sum(route:str):
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+    finally:
+        cursor.close()
+        conn.close()
+
 
 @app.get("/week-sum/{start_date}/{end_date}/{route}")
 async def get_week_sum(start_date: str,end_date: str, route: str):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         query = f"""
@@ -335,10 +344,20 @@ async def get_week_sum(start_date: str,end_date: str, route: str):
         print(f"Error: {e}")
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+    finally:
+        cursor.close()
+        conn.close()
  
 
 @app.get("/recent-activity")
 async def get_recent_activity():
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         query = """SELECT plant,time_stamp,message FROM activity ORDER BY "time_stamp" DESC LIMIT 5"""
@@ -362,10 +381,20 @@ async def get_recent_activity():
         print(f"Error: {e}")
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+    finally:
+        cursor.close()
+        conn.close()
     
 
 @app.get("/activity-history/{page}/{order}/{startDate}/{endDate}")
 async def get_activity_history(order: str , page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         offset = (page-1)*limit
@@ -405,9 +434,19 @@ async def get_activity_history(order: str , page:int = 1, limit:int = 20, dir: s
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+    finally:
+        cursor.close()
+        conn.close()
+
 
 @app.get("/activity-history/{page}/{order}/{startDate}/{endDate}/{search}")
 async def get_activity_history_search(order: str , search:str, page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         offset = (page-1)*limit
@@ -459,8 +498,18 @@ async def get_activity_history_search(order: str , search:str, page:int = 1, lim
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+    finally:
+        cursor.close()
+        conn.close()
+
 @app.get("/production-history/{page}/{order}/{startDate}/{endDate}")
 async def get_production_history(order: str, page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         offset = (page-1)*limit
@@ -521,8 +570,18 @@ async def get_production_history(order: str, page:int = 1, limit:int = 20, dir: 
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+    finally:
+        cursor.close()
+        conn.close()
+
 @app.get("/production-history/{page}/{order}/{startDate}/{endDate}/{search}")
 async def get_production_history_search(order: str, search:str, page:int = 1, limit:int = 20, dir: str = "ASC", startDate:Optional[str] = None, endDate:Optional[str] = None):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         offset = (page-1)*limit
@@ -591,8 +650,18 @@ async def get_production_history_search(order: str, search:str, page:int = 1, li
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+    finally:
+        cursor.close()
+        conn.close()
+
 @app.post("/activity")
 async def post_activity(activity:Activity):
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
 
@@ -622,6 +691,10 @@ async def post_activity(activity:Activity):
         print(f"Error: {e}")
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error") # 500??? i am very disappoint
+
+    finally:
+        cursor.close()
+        conn.close()
     
 @app.post("/send-mail")
 async def send_file(
@@ -645,6 +718,12 @@ async def send_file(
 
 @app.get("/status")
 async def get_status():
+    conn = psycopg.connect( dbname=os.getenv("DB_NAME"),
+                        host= os.getenv("DB_HOST"),
+                        user=os.getenv("DB_USER"),
+                        password=os.getenv("DB_PASS"),
+                        port=("5432")
+    )
     cursor = conn.cursor()
     try:
         query = """SELECT DISTINCT ON (plant, machine) plant, machine, code, message
@@ -664,6 +743,10 @@ async def get_status():
         print(f"Error: {e}")
         conn.rollback()  # Rollback any failed transaction
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+    finally:
+        cursor.close()
+        conn.close()
 
 # if __name__ == "__main__":
 #     import uvicorn
