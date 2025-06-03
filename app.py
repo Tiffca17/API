@@ -645,7 +645,7 @@ async def post_activity(product:production):
         query = f"""INSERT INTO products 
 	                    (plant, material,tonnes) 
                     VALUES
-	                ({plant}, {material}, {tonnes});
+	                ('{plant}', '{material}', {tonnes});
                     """
         
         cursor.execute(query)
